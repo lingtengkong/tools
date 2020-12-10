@@ -8,14 +8,8 @@ import matplotlib.pyplot as plt
 from scipy import ndimage, misc
 import textwrap
 
-
-# dir = './20_11_2020'
-# dir = './25_11_2020'
 dir = './07_12_2020'
-
-
 name_tag = '600nm'
-
 
 min = 5
 max = 10
@@ -23,7 +17,6 @@ max = 10
 reduce = True  # subtract min value in every image
 filter = False  # median_filter
 
-# only one should be True
 save_img = False  # save images
 save_multi = True  # save multiple images
 
@@ -75,7 +68,7 @@ def fig_save(image, info, path, name_tag, cmap, min, max, filter):
     plt.savefig('%s/added_%s.jpg' % (path, name_tag))
     plt.savefig('%s/added_%s.pdf' % (path, name_tag))
 
-    plt.show()
+    plt.close()
 
 
 def fig_multiSave(imageset, subplots_row, subplots_coloum, path, name_tag, cmap, min, max, filter):
