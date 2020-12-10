@@ -1,5 +1,5 @@
 __author__ = "Lingteng Kong <jn19830@bristol.ac.uk>"
-__created__ = "[10-12-2020 Wed]"
+__created__ = "[10-12-2020 Wed 20:00]"
 
 import codecs
 import os
@@ -39,6 +39,7 @@ def get_data(indir, reduce=True):
         for line in f:
             if len(line) > 300:
                 s = line.split(',')
+                # remove the first line of useless data and the last enter
                 data.append([float(s[i])
                              for i in range(1, len(s)-1)])
 
