@@ -13,19 +13,19 @@ import textwrap
 # dir = './25_11_2020'
 dir = './07_12_2020'
 
-# name_tag = '66x1hour_29kbq_am241_235mm'
-# name_tag = '600nm'
-name_tag = '1_hour_66times_am241_200mm_idus940_-80c_nofilter00'
+
+name_tag = '600nm'
+
 
 min = 5
 max = 10
 
 reduce = True  # subtract min value in every image
-filter = True  # median_filter
+filter = False  # median_filter
 
 # only one should be True
-save_img = True  # save images
-save_multi = False  # save multiple images
+save_img = False  # save images
+save_multi = True  # save multiple images
 
 
 def get_data(indir, reduce=True):
@@ -73,6 +73,7 @@ def fig_save(image, info, path, name_tag, cmap, min, max, filter):
         os.mkdir(path)
 
     plt.savefig('%s/added_%s.jpg' % (path, name_tag))
+    plt.savefig('%s/added_%s.pdf' % (path, name_tag))
 
     plt.show()
 
@@ -106,14 +107,19 @@ def fig_multiSave(imageset, subplots_row, subplots_coloum, path, name_tag, cmap,
             img = ndimage.median_filter(img, size=20)
 
         ax = ax.ravel()
-        im = ax[n].imshow(img, cmap='jet', vmin=min, vmax=max)
-        ax[n].set_title('Picture number: %s' % i)
+        im = ax[n].imshow(img, cmap=cmap, vmin=min, vmax=max)
+        ax[n].set_title('Picture number: %s' % (i+1))
         fig.colorbar(im, ax=ax[n])
 
-        if n == num_subplot - 1 or i == (len(imageset) - 1):
-            file_tag = int(i / num_subplot + 1)
-            plt.savefig('%s/%s_%s.jpg' % (path_jpg, name_tag, file_tag))
-            plt.savefig('%s/%s_%s.pdf' % (path_pdf, name_tag, file_tag))
+        if n == (num_subplot - 1) or i == (len(imageset) - 1):
+
+            file_num = (i+1) / num_subplot
+
+            if file_num != int(file_num):
+                file_num = int(file_num) + 1
+
+            plt.savefig('%s/%s_%d.jpg' % (path_jpg, name_tag, file_num))
+            plt.savefig('%s/%s_%d.pdf' % (path_pdf, name_tag, file_num))
             plt.close()
 
 
